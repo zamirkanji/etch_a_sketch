@@ -1,0 +1,81 @@
+html { background-color: #000; } 
+body {
+    min-height: 100vh;
+    max-width: 100%;
+    background-color: papayawhip; 
+    margin: 0 auto;
+    /* padding: 25px 0; */
+    /* display: flex; */
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: auto;
+}
+
+
+
+.main-container {
+    background-color: rgb(69, 69, 100);
+    max-width: 90%;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 15px;
+    border: 0;
+    opacity: .9;
+    /* z-index: 0; */
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-title-container {
+    background-color: rgb(59, 61, 161);
+    width: 100%;
+    height: auto;
+    max-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 36px;
+    letter-spacing: .1em;
+}
+
+.selection-container {
+    /* z-index: 1; */
+    width: 100%;
+    height: 150px;
+    max-height: 200px;
+    /* flex: 1; */
+    background-color: indianred;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.slider {
+    color: black;
+}
+
+.slider ::after {
+    content: "64";
+    
+}
+
+.grid-container {
+    min-height: 690px;
+    width: 100%;
+    margin-top: 15px;
+    padding: 0;
+    background-color: rgb(235, 235, 235);
+    box-shadow: inset;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* z-index: 1; */
+}
+
+.boxes {
+    border: 1px solid black;
+}
