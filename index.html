@@ -15,16 +15,17 @@
         </div>
         <div class="selection-container">
             <div class="black-container">
-                <button class="black-color btn">Black</button>
+                <button class="black-color btn color-btn">Black</button>
             </div>
             <div class="rgb-container">
-                <button class="rgb-color btn">RGB</button>
+                <button class="rgb-color btn color-btn">RGB</button>
             </div>
             <div class="slider-container">
                 <label for="range" value="" id="min-label">Grid Size (Between 16 & 100)</label>
-                <input type="range" min="16" max="100" value="16" class="slider" id="myRange" onchange="checkValue(this.value)">
+                <input type="range" min="16" max="100" value="16" class="slider" id="myRange"  onchange="checkValue(this.value)">
                 <!-- <input type="text" id="textInput" value=""> -->
                 <!-- <label for="range">100</label>     -->
+                <!-- onload="checkValue(this.value)" -->
             </div>
             <div class="clear-container">
                 <button class="clear-btn btn">Clear Canvas</button>
