@@ -6,7 +6,7 @@ html { background-color: #000; }
 body {
     min-height: 100vh;
     max-width: 100%;
-    background-color: papayawhip; 
+    background-color: rgba(255, 232, 195, 0.9); 
     margin: 0 auto;
     font-family: Arial, Helvetica, sans-serif;
     overflow: auto;
