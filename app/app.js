@@ -2,18 +2,11 @@ const x = document.getElementById("myRange");
 const grid = document.querySelector(".grid");
 const clearBtn = document.querySelector('.clear-btn');
 const gridText = document.querySelector('.grid-txt');
+const percentage = document.querySelector('.perc-txt');
 const colorBtn = document.querySelectorAll('.color-btn');
 const blackBtn = document.querySelector('.black-color');
 const rgbBtn = document.querySelector('.rgb-color');
-
-// colorBtn.forEach((b) => {
-//     b.addEventListener('click', () => {
-//         console.log("test");
-//         // if (blackBtn)
-//     })
-// })
 const randomColor = Math.floor(Math.random()*16777215).toString(16);
-
 
 let movedSlider = false; //onpage load
 
@@ -33,14 +26,11 @@ const gridWidth = grid.clientWidth;
 
 let run = false;
 
-
 defaultGrid();
-
-
 
 function defaultGrid (s) {
     // console.log(s);
-    const cv = x.value;
+    const cv = x.value; 
     const a = cv * cv;
     const wd = gridWidth / cv;
     const hd = gridHeight /cv;
@@ -67,16 +57,16 @@ function checkValue (v) {
     document.getElementById('min-label').value = v;
     console.log(`current value: ${x.value}`);
     const defaultVal = x.defaultValue;
-    const currentVal = v;
+    const currentVal = v; //need to make a global variable to find current value 
     gridText.textContent = `(${v} x ${v})`;
     console.log(`default value ${defaultVal}`);
     getArea(currentVal);
+    // return currentVal;
 }
 
 function getArea (v) {
     const w = gridHeight / v;
     const h = gridWidth / v;
-    // console.log(w, h);
     createGrid(w, h, v);  
 }
  
@@ -91,14 +81,17 @@ function createGrid(w, h, v) {
         box.style.height = `${h}px`;
         grid.appendChild(box);
     }
-    
     hoverGrid();
 }
 
 
 function hoverGrid() {
+    let counter = 0;
+    const cv = x.value; //default grid value 
+    const a = cv * cv;
+    console.log(a, cv);
     const divsAll = document.querySelectorAll('.boxes');
-
+// shouldnt be in hover grid
     rgbBtn.addEventListener('click', () => {
         divsAll.forEach((d) => {
             d.addEventListener('mouseenter', () => {
@@ -108,7 +101,7 @@ function hoverGrid() {
             });
         });
     });
-
+// shouldnt be in hover grid
     blackBtn.addEventListener('click', () => {
         divsAll.forEach((d) => {
             d.addEventListener('mouseenter', () => {
@@ -117,21 +110,27 @@ function hoverGrid() {
             });
         }); 
     })
-    
     divsAll.forEach((d) => {
         d.addEventListener('mouseenter', () => {
-          console.log("forEach worked");
-          d.style.backgroundColor = "black";
+            const style = getComputedStyle(d);
+            const backgroundColor = style.backgroundColor;
+            if (backgroundColor === "rgb(255, 255, 255)") {
+                d.style.backgroundColor = "black";
+                counter++;
+                let completion = ((counter / a) * 100);
+                percentage.textContent = `${Math.floor(completion)}%`;
+            }
         });
       });                                                    
     divsAll.forEach((d) => {
         d.addEventListener('dblclick', () => {
-          console.log("forEach worked");
+        //   console.log("forEach worked");
           d.style.backgroundColor = "white";
         });
       });                                                    
 }
 
+//EVENT LISTENERS OUTSIDE OF FUNCS
 clearBtn.addEventListener('click', (e) => {
     console.log(e);
     run = false;
