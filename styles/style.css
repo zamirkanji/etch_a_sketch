@@ -3,7 +3,7 @@
 }
 
 html { background-color: #000; } 
-body {
+html, body {
     min-height: 100vh;
     max-width: 100%;
     background-color: rgba(255, 232, 195, 0.9); 
@@ -14,7 +14,7 @@ body {
 
 .main-container {
     /* background-color: rgb(69, 69, 100); */
-    max-width: 90%;
+    min-width: 100%;
     min-height: 100vh;
     margin: 0 auto;
     padding: 15px;

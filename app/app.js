@@ -26,8 +26,11 @@ const gridWidth = grid.clientWidth;
 
 let run = false;
 
+//on page load run default grid 
 defaultGrid();
 
+//gets current value from slider, creates area, finds width and height from client, and creates grid
+// ---> then calls hoverGrid() 
 function defaultGrid (s) {
     // console.log(s);
     const cv = x.value; 
