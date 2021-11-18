@@ -1,4 +1,6 @@
 const x = document.getElementById("myRange");
+const gridRange = document.querySelector('input[name="gridRange"]');
+
 const grid = document.querySelector(".grid");
 const clearBtn = document.querySelector('.clear-btn');
 const gridText = document.querySelector('.grid-txt');
@@ -27,7 +29,9 @@ const gridWidth = grid.clientWidth;
 let run = false;
 
 //on page load run default grid 
-defaultGrid();
+// defaultGrid();
+document.addEventListener('DOMContentLoaded', defaultGrid);
+
 
 //gets current value from slider, creates area, finds width and height from client, and creates grid
 // ---> then calls hoverGrid() 
