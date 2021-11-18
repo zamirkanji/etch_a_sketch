@@ -15,28 +15,36 @@ let movedSlider = false; //onpage load
 const gridHeight = grid.clientHeight;
 const gridWidth = grid.clientWidth;
 
-// window.addEventListener('load', defaultGrid);
-
-// function getHW () {
-// const gridHeight = grid.clientHeight;
-// const gridWidth = grid.clientWidth;
-// console.log(gridHeight, gridWidth);
-// const s = [gridWidth, gridHeight];
-// console.log(s);
-// return s;
-// }
-
 let run = false;
 
+
 //on page load run default grid 
-// defaultGrid();
 document.addEventListener('DOMContentLoaded', defaultGrid);
+document.addEventListener('DOMContentLoaded', getHW);
+
+//on window resize, get height and width;
+window.onresize = getHW;
+window.addEventListener('resize', getHW);
+
+//returns array with height and width of box (when responsive)
+function getHW () {
+    const gridHeight = grid.clientHeight;
+    const gridWidth = grid.clientWidth;
+    console.log(gridHeight, gridWidth);
+    const s = [gridWidth, gridHeight];
+    console.log(s);
+    return s;
+}
+
+
+//need to figur out how to take return from getHW (array) and then run default grid using client width and height
+//on dom load, or resize event (default, or resize), get height and width and call default grid (getHW is arg when calling default grid)
+//once size is positioned on input change of slider will adjust the box sizes further 
 
 
 //gets current value from slider, creates area, finds width and height from client, and creates grid
 // ---> then calls hoverGrid() 
 function defaultGrid (s) {
-    // console.log(s);
     const cv = x.value; 
     const a = cv * cv;
     const wd = gridWidth / cv;
@@ -51,7 +59,10 @@ function defaultGrid (s) {
     hoverGrid();
 }
 
+
+
 function checkValue (v) {
+    console.log(v);
     movedSlider = true; 
     function removeAllNodes(parent) {
         if (movedSlider) {
@@ -90,6 +101,10 @@ function createGrid(w, h, v) {
     }
     hoverGrid();
 }
+
+
+
+
 
 
 function hoverGrid() {
