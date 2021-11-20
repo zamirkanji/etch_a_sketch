@@ -8,12 +8,13 @@ const gridRange = document.querySelector('input[name="gridRange"]');
 const grid = document.querySelector(".grid");
 const clearBtn = document.querySelector('.clear-btn');
 const gridText = document.querySelector('.grid-txt');
-const percentage = document.querySelector('.perc-txt');
+// const percentage = document.querySelector('.perc-txt');
 const colorBtn = document.querySelectorAll('.color-btn');
 const blackBtn = document.querySelector('.black-color');
 const rgbBtn = document.querySelector('.rgb-color');
+const percTxt = document.querySelector('.perc-txt');
 
-
+percTxt.textContent = "";
 
 let movedSlider = false; //onpage load
 
@@ -55,7 +56,8 @@ function createGrid(w, h, a) {
         box.style.height = `${h}px`;
         grid.appendChild(box);
     }
-    return hoverGrid();
+    // return hoverGrid();
+    hoverGrid();
 }
 
 function hoverGrid() {
@@ -64,6 +66,8 @@ function hoverGrid() {
     const a = cv * cv;
     
     const divsAll = document.querySelectorAll('.boxes');
+
+    percTxt.textContent = `0%`;
 
     //background color black by default - on mouseenter (Each div element)
     divsAll.forEach((d) => {
@@ -75,16 +79,18 @@ function hoverGrid() {
                 d.style.backgroundColor = "black";
                 counter++; 
                 let completion = ((counter / a) * 100);
-                percentage.textContent = `${Math.floor(completion)}%`;
+                percTxt.textContent = `${Math.floor(completion)}%`;
+                
             }
         });
-      });                                                    
+      });    
+      
+      
 
-    //one of the buttons has to be run == true or active 
     const rgbColor = () => { 
-        const randomColor = Math.floor(Math.random()*16777215).toString(16);
         divsAll.forEach((d) => {
             d.addEventListener('mouseenter', () => {
+                const randomColor = Math.floor(Math.random()*16777215).toString(16);
                 d.style.backgroundColor = "#" + randomColor;
             });
         });
@@ -92,13 +98,11 @@ function hoverGrid() {
     
     
     const blackColor = () => {
-        blackBtn.addEventListener('click', () => {
-            divsAll.forEach((d) => {
-                d.addEventListener('mouseenter', () => {
-                    d.style.backgroundColor = "black";
-                });
-            }); 
-        })
+        divsAll.forEach((d) => {
+            d.addEventListener('mouseenter', () => {
+                d.style.backgroundColor = "black";
+            });
+        }); 
     }
     
     // divsAll.forEach((d) => { 
@@ -115,7 +119,6 @@ function hoverGrid() {
 const sliderChange = (v) => {
     console.log(v);
     movedSlider = true; 
-    console.log("moved test");
     function removeAllNodes(parent) {
         if (movedSlider) {
             while (grid.firstChild) {
