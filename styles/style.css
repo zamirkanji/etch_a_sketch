@@ -14,7 +14,8 @@ html, body {
 }
 
 .main-container {
-    background-color: rgb(69, 69, 100);
+    /* background-color: rgb(69, 69, 100); */
+    background-color: rgb(48, 107, 114);
     min-width: 100%;
     height: 100%;
     margin: 0 auto;
@@ -59,7 +60,7 @@ html, body {
 }
 
 .selection-container {
-    height: 50%;
+    height: 75%;
     align-self: center;
     flex: 1;
     background-color: indianred;
@@ -68,7 +69,7 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 15px;
+    /* padding: 15px; */
 }
 
 .black-container {
@@ -168,34 +169,27 @@ html, body {
 }
 
 .grid-container {
-    background-color: indianred;
-    border-radius: 30px;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.6);
+    /* background-color: indianred; */
+    border-radius: 20px;
+    /* box-shadow: 0 3px 10px rgb(0 0 0 / 0.6); */
     display: flex;
-    /* justify-content: space-evenly; */
     justify-content: center;
     align-items: center;
-    /* height: 70%; */
-    flex: 2;
+    height: 75%;
+    flex: 1;
+    align-self: center;
 }
 
 .grid {
     background-color: rgb(235, 235, 235);
-    /* width: 500px;
-    height: 500px; */
-    height: 50%;
-    width: 50%;
-    /* flex: 1; */
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
-    /* margin: 15px; */
     padding: 0;
-    /* line-height: 0; */
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.6);
-    /* box-sizing: border-box; */
 }
-
 .boxes {
     border: 1px solid black;
     background-color: white;

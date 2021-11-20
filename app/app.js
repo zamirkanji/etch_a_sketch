@@ -13,7 +13,7 @@ const colorBtn = document.querySelectorAll('.color-btn');
 const blackBtn = document.querySelector('.black-color');
 const rgbBtn = document.querySelector('.rgb-color');
 
-const randomColor = Math.floor(Math.random()*16777215).toString(16);
+
 
 let movedSlider = false; //onpage load
 
@@ -24,59 +24,26 @@ let run = false;
 let counter = 0;
  
 
-//on page load run default grid 
 document.addEventListener('DOMContentLoaded', function () {
     movedSlider = false;
-    getHW();
-    checkValue();
-    // hoverGrid();
-});
+    getHW(checkValue);
+})
 
-
-//on window resize, get height and width;
-// window.onresize = getHW;
-// window.addEventListener('resize', function () {
-//     getHW();
-//     checkValue();
-// });
-
-//returns array with height and width of box (when responsive)
-function getHW () {
+function getHW (checkValue) {
     const gridWidth = grid.clientWidth;
     const gridHeight = grid.clientHeight;
-
     const s = [gridWidth, gridHeight];
-    console.log(s);
-    return s; //returns client height and width in px 
+    checkValue(s);
 }
 
-// function removeChildren () {
-//     movedSlider = true; 
-//     console.log("moved test");
-//     function removeAllNodes(parent) {
-//         if (movedSlider) {
-//             while (grid.firstChild) {
-//                 grid.removeChild(parent.firstChild);
-                
-//             }
-//         }
-//     }
-//     removeAllNodes(grid);
-// }
-
-function checkValue () {
+function checkValue (s) {
     const val = document.getElementById("myRange");
-    
     const cv = val.value;
-    const hw = getHW(); //is this the second time it is run/checked?
     gridText.textContent = `(${cv} x ${cv})`;
-    const w = hw[0] / cv;
-    const h = hw[1] / cv;
+    const w = s[0] / cv;
+    const h = s[1] / cv;
     const a = cv * cv;
-
     createGrid(w, h, a); 
-    
-    // return [w, h, a];
 }
 
 function createGrid(w, h, a) {
@@ -88,35 +55,17 @@ function createGrid(w, h, a) {
         box.style.height = `${h}px`;
         grid.appendChild(box);
     }
-    hoverGrid();
+    return hoverGrid();
 }
 
-// const whA = checkValue();
-
-
-function hoverGrid(checkValue) {
+function hoverGrid() {
     const val = document.getElementById("myRange");
     const cv = val.value;
     const a = cv * cv;
     
     const divsAll = document.querySelectorAll('.boxes');
 
-
-    //one of the buttons has to be run == true or active 
-    rgbBtn.addEventListener('click', () => {
-        divsAll.forEach((d) => {
-            d.addEventListener('mouseenter', () => {
-                d.style.backgroundColor = "#" + randomColor;
-            });
-        });
-    });
-    blackBtn.addEventListener('click', () => {
-        divsAll.forEach((d) => {
-            d.addEventListener('mouseenter', () => {
-              d.style.backgroundColor = "black";
-            });
-        }); 
-    })
+    //background color black by default - on mouseenter (Each div element)
     divsAll.forEach((d) => {
         d.addEventListener('mouseenter', () => {
             const style = getComputedStyle(d);
@@ -124,20 +73,47 @@ function hoverGrid(checkValue) {
             //how does this reset everytime slider is moved????
             if (backgroundColor === "rgb(255, 255, 255)") {
                 d.style.backgroundColor = "black";
-                counter++;
+                counter++; 
                 let completion = ((counter / a) * 100);
                 percentage.textContent = `${Math.floor(completion)}%`;
             }
         });
       });                                                    
-    divsAll.forEach((d) => {
-        d.addEventListener('dblclick', () => {
-          d.style.backgroundColor = "white";
+
+    //one of the buttons has to be run == true or active 
+    const rgbColor = () => { 
+        const randomColor = Math.floor(Math.random()*16777215).toString(16);
+        divsAll.forEach((d) => {
+            d.addEventListener('mouseenter', () => {
+                d.style.backgroundColor = "#" + randomColor;
+            });
         });
-      });                                                    
+    }
+    
+    
+    const blackColor = () => {
+        blackBtn.addEventListener('click', () => {
+            divsAll.forEach((d) => {
+                d.addEventListener('mouseenter', () => {
+                    d.style.backgroundColor = "black";
+                });
+            }); 
+        })
+    }
+    
+    // divsAll.forEach((d) => { 
+    //     d.addEventListener('dblclick', () => {
+    //         d.style.backgroundColor = "white";
+    //     });
+    // });
+    
+    
+    rgbBtn.addEventListener('click', rgbColor);
+    blackBtn.addEventListener('click', blackColor);
 }
 
-const sliderChange = () => {
+const sliderChange = (v) => {
+    console.log(v);
     movedSlider = true; 
     console.log("moved test");
     function removeAllNodes(parent) {
@@ -149,22 +125,11 @@ const sliderChange = () => {
         }
     }
     removeAllNodes(grid);
-    checkValue();
+    getHW(checkValue);
 }
 
 
 //EVENT LISTENERS OUTSIDE OF FUNCS
-
-//delete current grid and create new one 
-// gridRange.addEventListener('change', function() {
-//     console.log("slider changes");
-//     movedSlider = true;
-//     removeChildren();
-//     checkValue();
-//     hoverGrid();
-//     // hoverGrid(checkValue());
-// });
-//
 clearBtn.addEventListener('click', (e) => {
     console.log(e);
     run = false;
