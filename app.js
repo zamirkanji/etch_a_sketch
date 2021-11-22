@@ -15,6 +15,11 @@ const blackBtn = document.querySelector(".black-color");
 const rgbBtn = document.querySelector(".rgb-color");
 const percTxt = document.querySelector(".perc-txt");
 
+let getBlack = () => "black";
+let getRGB = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`; // nice rng function!!
+
+let getSelectedColor = getBlack;
+
 percTxt.textContent = "";
 
 const gridHeight = grid.clientHeight;
@@ -45,6 +50,7 @@ function createGrid(w, h, a) {
     box.classList.add("boxes");
     box.style.width = `${w}px `;
     box.style.height = `${h}px`;
+    box.style.backgroundColor = "white";
     grid.appendChild(box);
   }
   // return hoverGrid();
@@ -63,11 +69,9 @@ function hoverGrid() {
   //background color black by default - on mouseenter (Each div element)
   divsAll.forEach((d) => {
     d.addEventListener("mouseenter", () => {
-      const style = getComputedStyle(d);
-      const backgroundColor = style.backgroundColor;
-      //how does this reset everytime slider is moved????
-      if (backgroundColor === "rgb(255, 255, 255)") {
-        d.style.backgroundColor = "black";
+      // clear canvas button had a class clear-btn which apparently is a browser native class for button elements that was refreshing the entire page. I had no idea about this lol
+      if (d.style.backgroundColor === "white") {
+        d.style.backgroundColor = getSelectedColor();
         counter++;
         let completion = (counter / a) * 100;
         percTxt.textContent = `${Math.floor(completion)}%`;
@@ -80,32 +84,9 @@ function hoverGrid() {
   //         d.style.backgroundColor = "white";
   //     });
   // });
-
-  rgbBtn.addEventListener("click", () => rgbColor(divsAll));
-  blackBtn.addEventListener("click", () => blackColor(divsAll));
 }
 
-const rgbColor = (divsAll) => {
-  divsAll.forEach((d) => {
-    d.addEventListener("mouseenter", () => {
-      const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-      d.style.backgroundColor = "#" + randomColor;
-    });
-  });
-};
-
-const blackColor = (divsAll) => {
-  divsAll.forEach((d) => {
-    d.addEventListener("mouseenter", () => {
-      d.style.backgroundColor = "black";
-    });
-  });
-};
-
-//EVENT LISTENERS OUTSIDE OF FUNCS
-myRange.onchange = () => sliderChange();
-
-const sliderChange = () => {
+const handleSliderChange = () => {
   function removeAllNodes(parent) {
     while (grid.firstChild) {
       grid.removeChild(parent.firstChild);
@@ -115,10 +96,23 @@ const sliderChange = () => {
   getHW(checkValue);
 };
 
-clearBtn.addEventListener("click", (e) => {
+const clearCanvas = () => {
   document
     .querySelectorAll(".boxes")
     .forEach((pixel) => (pixel.style.backgroundColor = "white"));
-});
+  resetCompletionTextAndCounter();
+};
 
+const resetCompletionTextAndCounter = () => {
+  counter = 0;
+  percTxt.textContent = "0%";
+};
+
+//EVENT LISTENERS OUTSIDE OF FUNCS
+myRange.onchange = () => handleSliderChange();
+rgbBtn.addEventListener("click", () => (getSelectedColor = getRGB));
+blackBtn.addEventListener("click", () => (getSelectedColor = getBlack));
+clearBtn.addEventListener("click", clearCanvas);
+
+//creates default grid
 getHW(checkValue);
