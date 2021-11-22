@@ -16,9 +16,24 @@ const rgbBtn = document.querySelector(".rgb-color");
 const percTxt = document.querySelector(".perc-txt");
 
 let getBlack = () => "black";
-let getRGB = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`; // nice rng function!!
-
+let getRGB = () => getRandomHexSring();
 let getSelectedColor = getBlack;
+
+// ;) I was having way to much fun with javascript shenanigans.
+const hexDigits = "0123456789abcdef#";
+const rngFn = () => Math.floor(Math.random() * 16);
+const rngHexDigitIndexers = [
+  () => 16,
+  rngFn,
+  rngFn,
+  rngFn,
+  rngFn,
+  rngFn,
+  rngFn,
+];
+const randomHexDigit = (rngFunc) => hexDigits[rngFunc()];
+const getRandomHexSring = () =>
+  rngHexDigitIndexers.map((rngFn) => randomHexDigit(rngFn)).join("");
 
 percTxt.textContent = "";
 
@@ -50,7 +65,7 @@ function createGrid(w, h, a) {
     box.classList.add("boxes");
     box.style.width = `${w}px `;
     box.style.height = `${h}px`;
-    box.style.backgroundColor = "white";
+    box.style.backgroundColor = "";
     grid.appendChild(box);
   }
   // return hoverGrid();
@@ -70,8 +85,9 @@ function hoverGrid() {
   divsAll.forEach((d) => {
     d.addEventListener("mouseenter", () => {
       // clear canvas button had a class clear-btn which apparently is a browser native class for button elements that was refreshing the entire page. I had no idea about this lol
-      if (d.style.backgroundColor === "white") {
-        d.style.backgroundColor = getSelectedColor();
+      if (d.style.backgroundColor === "") {
+        const selectedColor = getSelectedColor();
+        d.style.backgroundColor = selectedColor;
         counter++;
         let completion = (counter / a) * 100;
         percTxt.textContent = `${Math.floor(completion)}%`;
@@ -86,12 +102,13 @@ function hoverGrid() {
   // });
 }
 
-const handleSliderChange = () => {
-  function removeAllNodes(parent) {
-    while (grid.firstChild) {
-      grid.removeChild(parent.firstChild);
-    }
+function removeAllNodes(parent) {
+  while (grid.firstChild) {
+    grid.removeChild(parent.firstChild);
   }
+}
+
+const handleSliderChange = () => {
   removeAllNodes(grid);
   getHW(checkValue);
 };
@@ -99,7 +116,7 @@ const handleSliderChange = () => {
 const clearCanvas = () => {
   document
     .querySelectorAll(".boxes")
-    .forEach((pixel) => (pixel.style.backgroundColor = "white"));
+    .forEach((pixel) => (pixel.style.backgroundColor = ""));
   resetCompletionTextAndCounter();
 };
 
