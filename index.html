@@ -1,46 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/style.css" />
     <title>Etch A Sketch</title>
-    
-</head>
-<body>
+  </head>
+  <body>
     <div class="main-container">
-        <div class="hero-title-container">
-            <h1 class="title">Etch-a-Sketch</h1>
+      <div class="hero-title-container">
+        <h1 class="title">Etch-a-Sketch</h1>
+      </div>
+      <div class="selection-container">
+        <div class="black-container">
+          <button class="black-color btn color-btn">Black</button>
         </div>
-        <div class="selection-container">
-            <div class="black-container">
-                <button class="black-color btn color-btn">Black</button>
-            </div>
-            <div class="rgb-container">
-                <button class="rgb-color btn color-btn">RGB</button>
-            </div>
-            <div class="slider-container">
-                <label for="range" value="" id="min-label">Grid Size (Between 16 & 100)</label>
-                <input type="range" name="gridRange" min="16" max="100" value="16" class="slider" id="myRange" onchange="sliderChange(this.value)">
-                <!-- <input type="range" name="gridRange" min="16" max="100" value="16" class="slider" id="myRange"> -->
-            </div>
-            <div class="clear-container">
-                <button class="clear-btn btn">Clear Canvas</button>
-            </div>
+        <div class="rgb-container">
+          <button class="rgb-color btn color-btn">RGB</button>
         </div>
-        <div class="grid-txt-container">
-            <p class="grid-txt">(16 x 16)</p>
-            <p class="perc-txt"></p>
+        <div class="slider-container">
+          <label for="range" value="" id="min-label"
+            >Grid Size (Between 16 & 100)</label
+          >
+          <input
+            type="range"
+            name="gridRange"
+            min="16"
+            max="100"
+            value="16"
+            class="slider"
+            id="myRange"
+          />
+          <!-- <input type="range" name="gridRange" min="16" max="100" value="16" class="slider" id="myRange"> -->
         </div>
-        <div class='grid-container'>
-            <!-- <div class="grid style='height: 500px; width: 500px;'"> -->
-            <div class="grid">
-
-            </div>
+        <div class="clear-container">
+          <button class="clear-canvas btn">Clear Canvas</button>
         </div>
+      </div>
+      <div class="grid-txt-container">
+        <p class="grid-txt">(16 x 16)</p>
+        <p class="perc-txt"></p>
+      </div>
+      <div class="grid-container">
+        <!-- <div class="grid style='height: 500px; width: 500px;'"> -->
+        <div class="grid"></div>
+      </div>
     </div>
 
     <script src="app/app.js"></script>
-</body>
+  </body>
 </html>
